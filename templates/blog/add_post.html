@@ -4,9 +4,11 @@
 
 <h2>New Post</h2>
 <br/>
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-primary">Post</button>
+<div class="form-group">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary">Post</button>
+</div>
 
 {% endblock %}
