@@ -37,6 +37,7 @@ def add_post(request):
 
 def edit_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
+
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
@@ -47,3 +48,11 @@ def edit_post(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, "blog/edit_post.html", {"form": form})
+
+
+def delete_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        post.delete()
+        return redirect("home")
+    return render(request, "blog/delete_post.html", {"post": post})
