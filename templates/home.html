@@ -6,7 +6,8 @@
 
 <ul>
 {% for post in posts %}
-    <li><a href="{% url 'post_detail' post.pk%}">{{ post.title }}</a> - by {{ post.author.first_name }}<br />
+    <li><a href="{% url 'post_detail' post.pk%}">{{ post.title }}</a> - by {{ post.author.first_name }}
+        <small><a href="{% url 'edit_post' post.pk%}">(Edit)</a></small> <br/>
     {{ post.body }}</li>
 {% endfor %}
 </ul>
