@@ -2,17 +2,21 @@
 {% block title %} Delete Post {% endblock %}
 {% block content %}
 
-<h2>Delete</h2>
-<br/>
-<h3>Deleting: {{ post.title }}</h3>
-<p>{{ post.body }}</p><br/>
+{% if user.is_authenticated %}
+    <h2>Delete</h2>
+    <br/>
+    <h3>Deleting: {{ post.title }}</h3>
+    <p>{{ post.body }}</p><br/>
 
-<div class="form-group">
-    <form method="POST">
-        {% csrf_token %}
-        <strong>Are you sure you want to delete "{{ post.title }}"? This action cannot be undone.</strong><br/><br/>
-        <button class="btn btn-danger">Delete Post</button> <a href="{% url 'home' %}" class="btn btn-light">Back</button>
-    </form>
-</div>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            <strong>Are you sure you want to delete "{{ post.title }}"? This action cannot be undone.</strong><br/><br/>
+            <button class="btn btn-danger">Delete Post</button> <a href="{% url 'home' %}" class="btn btn-light">Back</button>
+        </form>
+    </div>
+{% else %}
+    You are not logged in. Please <a href="{% url 'login' %}">log in</a> to add edit this post!
+{% endif %}
 
 {% endblock %}

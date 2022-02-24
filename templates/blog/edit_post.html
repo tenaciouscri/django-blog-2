@@ -2,14 +2,18 @@
 {% block title %} Edit Post {% endblock %}
 {% block content %}
 
-<h2>New Post</h2>
-<br/>
-<div class="form-group">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-primary">Update</button>
-    </form>
-</div>
+{% if user.is_authenticated %}
+    <h2>New Post</h2>
+    <br/>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary">Update</button>
+        </form>
+    </div>
+{% else %}
+    You are not logged in. Please <a href="{% url 'login' %}">log in</a> to add edit this post!
+{% endif %}
 
 {% endblock %}
