@@ -1,7 +1,7 @@
 from .models import Category
 
 
-def menu_links(request):
+def category_menu(request):
     """
     This will show the categories in the dropdown menu in all pages.
     """
