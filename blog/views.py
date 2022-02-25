@@ -24,11 +24,10 @@ def post_detail(request, pk):
 
 def add_post(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        post = Post(author=request.user)
+        form = PostForm(request.POST, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
+            form.save()
             return redirect("post_detail", pk=post.pk)
     else:
         form = PostForm()
