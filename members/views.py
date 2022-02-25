@@ -3,6 +3,8 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from members.forms import CustomUserCreationForm
 
+def dashboard(request):
+    return render(request, "members/dashboard.html")
 
 def register(request):
     if request.method == "GET":
