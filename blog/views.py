@@ -64,3 +64,11 @@ def delete_post(request, pk):
         post.delete()
         return redirect("home")
     return render(request, "blog/delete_post.html", {"post": post})
+
+
+def posts_by_category(request, category):
+    posts = Post.objects.filter(
+        category__name__contains=category.replace("-", " ")
+    ).order_by("-created_on")
+    context = {"category": category.title().replace("-", " "), "posts": posts}
+    return render(request, "blog/posts_by_category.html", context)

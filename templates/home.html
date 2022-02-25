@@ -8,8 +8,7 @@
 {% for post in posts %}
     <li><a href="{% url 'post_detail' post.pk%}">{{ post.title }}</a> -
         {% for category in post.category.all %}
-        {% comment %} <a href="{% url 'post_category' category.name %}"></a> {% endcomment %}
-            {{ category }}
+            <a href="{% url 'post_by_category' category.name|slugify %}">{{ category }}</a>
         {% endfor %} -
         by {{ post.author.first_name }} -
         {{ post.created_on.date }} 
