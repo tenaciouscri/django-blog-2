@@ -35,3 +35,11 @@ class PostForm(forms.ModelForm):
             attrs={"class": "form-control", "placeholder": "Enter your post here..."}
         )
     )
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = [
+            "name",
+        ]

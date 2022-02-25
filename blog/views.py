@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import PostForm
+from .forms import CategoryForm, PostForm
 from .models import Post
 
 
@@ -34,15 +34,24 @@ def add_post(request):
     return render(request, "blog/add_post.html", {"form": form})
 
 
+def add_category(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+    else:
+        form = CategoryForm()
+    return render(request, "blog/add_category.html", {"form": form})
+
+
 def edit_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
+            form.save()
             return redirect("post_detail", pk=post.pk)
     else:
         form = PostForm(instance=post)
