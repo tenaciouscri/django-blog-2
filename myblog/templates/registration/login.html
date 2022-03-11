@@ -10,8 +10,12 @@
         {{ form.as_p }}
         <button class="btn btn-primary">Login</button>
     </form><br/>
-    - OR - <br/><br/>
-    <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
+    - OR - <br/>
+    <a href="{% url 'social:begin' 'github' %}">Log in with GitHub</a>
+
+    <br/><br/>
+    <a href="{% url 'password_reset' %}">Reset password</a>
+    <a href="{% url 'register' %}">Register</a>
 </div>
 
 {% endblock %}
