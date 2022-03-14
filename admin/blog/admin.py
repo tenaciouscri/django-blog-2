@@ -49,11 +49,27 @@ class BlogAdmin(admin.ModelAdmin):
 
     date_hierarchy = "date_created"  # Add navigational elements by date
 
-    fields = (
-        ("title", "slug"), # Putting two fields on same line
-        "body",
-        "is_draft"
-        )  # Custom fields layout
+    # fields = (
+    #     ("title", "slug"), # Putting two fields on same line
+    #     "body",
+    #     "is_draft"
+    #     )  # Custom fields layout
+
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (("title", "slug"), "body"),
+            },
+        ),
+        (
+            "Advanced options",
+            {
+                "fields": ("is_draft",),
+                "description": "Options to configure blog creation",  # Add description
+            },
+        ),
+    )  # Custom fieldsets w/ their own title. Cannot have both fields/fieldsets
 
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
