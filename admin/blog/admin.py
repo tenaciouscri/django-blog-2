@@ -4,8 +4,10 @@ from django.db.models import Count
 
 from django_admin_listfilter_dropdown.filters import RelatedDropdownFilter
 from django_summernote.admin import SummernoteModelAdmin
+from leaflet.admin import LeafletGeoAdmin
+from rangefilter.filter import DateTimeRangeFilter
 
-from blog.models import Blog, Comment, Category
+from blog.models import Blog, Comment, Category, Place
 
 
 class CommentInline(admin.TabularInline):  # Showing comments in blog admin page
@@ -29,7 +31,7 @@ class BlogAdmin(SummernoteModelAdmin):
 
     list_filter = (
         "is_draft",
-        "date_created",
+        ("date_created", DateTimeRangeFilter),  # Date range filter
     )  # Adding filter as sidebar
 
     # ordering = (
@@ -80,7 +82,10 @@ class BlogAdmin(SummernoteModelAdmin):
         (
             "Advanced options",
             {
-                "fields": ("is_draft", "categories", ),
+                "fields": (
+                    "is_draft",
+                    "categories",
+                ),
                 "description": "Options to configure blog creation",  # Add description
                 "classes": ("collapse",),  # Make section collapsible
             },
@@ -112,7 +117,7 @@ class BlogAdmin(SummernoteModelAdmin):
 
     no_of_comments.admin_order_field = "comments_count"
 
-    filter_horizontal = ("categories", ) # Make many-to-many field more user friendly
+    filter_horizontal = ("categories",)  # Make many-to-many field more user friendly
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -120,15 +125,10 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ("blog", "text", "date_created", "is_active")
     list_editable = ("is_active",)  # Editable in table
     list_per_page = 20
-    list_filter = (
-        ("blog", RelatedDropdownFilter),
-    )
-
-
-class CategoryAdmin(admin.ModelAdmin):
-    pass
+    list_filter = (("blog", RelatedDropdownFilter),)  # Dropdown list filter
 
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
 admin.site.register(Comment, CommentAdmin)
-admin.site.register(Category, CategoryAdmin)
+admin.site.register(Category)
+admin.site.register(Place, LeafletGeoAdmin)

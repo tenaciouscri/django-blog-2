@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     "blog",
     "django_summernote",
     "django_admin_listfilter_dropdown",
+    "rangefilter",
+    "leaflet",  # Provides widgets for map display
+    "djgeojson",  # Provides fields
 ]
 
 MIDDLEWARE = [
