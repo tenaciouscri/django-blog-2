@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # "grappelli", # For custom admin skin
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
