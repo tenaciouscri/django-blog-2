@@ -128,6 +128,8 @@ class CommentAdmin(ImportExportModelAdmin):  # ImExMoAd to export comments
     list_editable = ("is_active",)  # Editable in table
     list_per_page = 20
     list_filter = (("blog", RelatedDropdownFilter),)  # Dropdown list filter
+    list_select_related = True
+    raw_id_fields = ("blog", )
 
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
