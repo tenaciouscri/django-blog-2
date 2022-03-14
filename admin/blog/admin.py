@@ -24,5 +24,9 @@ class BlogAdmin(admin.ModelAdmin):
             return ("title", "-date_created")
         return ("title",)
 
+    search_fields = (
+        "title",
+    ) # Adding searchable fields (case insensitive)
+
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
