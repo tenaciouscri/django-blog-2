@@ -4,10 +4,12 @@ from django.db.models import Count
 
 from django_admin_listfilter_dropdown.filters import RelatedDropdownFilter
 from django_summernote.admin import SummernoteModelAdmin
+from import_export.admin import ImportExportModelAdmin
 from leaflet.admin import LeafletGeoAdmin
 from rangefilter.filter import DateTimeRangeFilter
 
 from blog.models import Blog, Comment, Category, Place
+from blog.resources import CommentResource
 
 
 class CommentInline(admin.TabularInline):  # Showing comments in blog admin page
@@ -120,7 +122,7 @@ class BlogAdmin(SummernoteModelAdmin):
     filter_horizontal = ("categories",)  # Make many-to-many field more user friendly
 
 
-class CommentAdmin(admin.ModelAdmin):
+class CommentAdmin(ImportExportModelAdmin):  # ImExMoAd to export comments
 
     list_display = ("blog", "text", "date_created", "is_active")
     list_editable = ("is_active",)  # Editable in table

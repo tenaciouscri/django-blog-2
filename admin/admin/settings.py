@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "rangefilter",
     "leaflet",  # Provides widgets for map display
     "djgeojson",  # Provides fields
+    "import_export",
 ]
 
 MIDDLEWARE = [
