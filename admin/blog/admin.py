@@ -4,14 +4,16 @@ from django.db.models import Count
 
 from django_summernote.admin import SummernoteModelAdmin
 
-from blog.models import Blog, Comment
+from blog.models import Blog, Comment, Category
 
-class CommentInline(admin.TabularInline): # Showing comments in blog admin page
+
+class CommentInline(admin.TabularInline):  # Showing comments in blog admin page
     # Could also be StackedInline
     model = Comment
     fields = ("text", "is_active")
-    extra = 1 # By default 3 empty boxes at the end
-    classes = ("collapse", )
+    extra = 1  # By default 3 empty boxes at the end
+    classes = ("collapse",)
+
 
 class BlogAdmin(SummernoteModelAdmin):
 
@@ -79,7 +81,7 @@ class BlogAdmin(SummernoteModelAdmin):
             {
                 "fields": ("is_draft",),
                 "description": "Options to configure blog creation",  # Add description
-                "classes": ("collapse", ) # Make section collapsible
+                "classes": ("collapse",),  # Make section collapsible
             },
         ),
     )  # Custom fieldsets w/ their own title. Cannot have both fields/fieldsets
@@ -94,30 +96,31 @@ class BlogAdmin(SummernoteModelAdmin):
     # Apply Summernote to all TextField in model
     summernote_fields = ("body",)
 
-    inlines = (CommentInline, ) # Adding inlines at the end of the page
+    inlines = (CommentInline,)  # Adding inlines at the end of the page
 
     def get_queryset(self, request):
-        '''
+        """
         Overriding changelist queries
-        '''
+        """
         queryset = super().get_queryset(request)
         queryset = queryset.annotate(comments_count=Count("comments"))
         return queryset
-    
+
     def no_of_comments(self, blog):
         return blog.comments_count
+
     no_of_comments.admin_order_field = "comments_count"
-
-
 
 
 class CommentAdmin(admin.ModelAdmin):
 
     list_display = ("blog", "text", "date_created", "is_active")
-    list_editable = ("is_active", ) # Editable in table
+    list_editable = ("is_active",)  # Editable in table
     list_per_page = 20
 
-
+class CategoryAdmin(admin.ModelAdmin):
+    pass
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Category, CategoryAdmin)
