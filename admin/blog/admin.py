@@ -47,7 +47,13 @@ class BlogAdmin(admin.ModelAdmin):
 
     actions = ("set_blogs_to_published",)  # Adding custom action to list of actions
 
-    date_hierarchy = "date_created" # Add navigational elements by date
+    date_hierarchy = "date_created"  # Add navigational elements by date
+
+    fields = (
+        ("title", "slug"), # Putting two fields on same line
+        "body",
+        "is_draft"
+        )  # Custom fields layout
 
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
