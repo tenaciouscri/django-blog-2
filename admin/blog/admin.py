@@ -4,6 +4,11 @@ from django_summernote.admin import SummernoteModelAdmin
 
 from blog.models import Blog, Comment
 
+class CommentInline(admin.TabularInline): # Showing comments in blog admin page
+    # Could also be StackedInline
+    model = Comment
+    fields = ("text", "is_active")
+    extra = 1 # By default 3 empty boxes at the end
 
 class BlogAdmin(SummernoteModelAdmin):
 
@@ -84,9 +89,13 @@ class BlogAdmin(SummernoteModelAdmin):
     # Apply Summernote to all TextField in model
     summernote_fields = ("body",)
 
+    inlines = (CommentInline, ) # Adding inlines at the end of the page
+
 
 class CommentAdmin(admin.ModelAdmin):
-    pass
+
+    list_display = ("blog", "text", "date_created", "is_active")
+
 
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
