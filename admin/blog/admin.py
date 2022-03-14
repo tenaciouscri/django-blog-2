@@ -79,7 +79,7 @@ class BlogAdmin(SummernoteModelAdmin):
         (
             "Advanced options",
             {
-                "fields": ("is_draft",),
+                "fields": ("is_draft", "categories", ),
                 "description": "Options to configure blog creation",  # Add description
                 "classes": ("collapse",),  # Make section collapsible
             },
@@ -111,6 +111,8 @@ class BlogAdmin(SummernoteModelAdmin):
 
     no_of_comments.admin_order_field = "comments_count"
 
+    filter_horizontal = ("categories", ) # Make many-to-many field more user friendly
+
 
 class CommentAdmin(admin.ModelAdmin):
 
@@ -118,8 +120,10 @@ class CommentAdmin(admin.ModelAdmin):
     list_editable = ("is_active",)  # Editable in table
     list_per_page = 20
 
+
 class CategoryAdmin(admin.ModelAdmin):
     pass
+
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
 admin.site.register(Comment, CommentAdmin)
