@@ -14,5 +14,15 @@ class BlogAdmin(admin.ModelAdmin):
 
     list_filter = ("is_draft",)  # Adding filter as sidebar
 
+    # ordering = (
+    #     'title', # Ascending order
+    #     '-date_created', # Descending order
+    # ) # Adding 'order by' for selected fields 
+
+    def get_ordering(self, request): # Dynamic functionality for different users
+        if request.user.is_superuser:
+            return ("title", "-date_created")
+        return ("title",)
+
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
