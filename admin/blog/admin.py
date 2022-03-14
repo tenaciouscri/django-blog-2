@@ -12,7 +12,10 @@ class BlogAdmin(admin.ModelAdmin):
         "is_draft",
     )  # Customising the way object models get displayed
 
-    list_filter = ("is_draft",)  # Adding filter as sidebar
+    list_filter = (
+        "is_draft",
+        "date_created",
+    )  # Adding filter as sidebar
 
     # ordering = (
     #     'title', # Ascending order
@@ -27,6 +30,8 @@ class BlogAdmin(admin.ModelAdmin):
     search_fields = ("title",)  # Adding searchable fields (case insensitive)
 
     prepopulated_fields = {"slug": ("title",)}  # Prepopulate field
+
+    list_per_page = 50  # Customise no. objects per page
 
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
