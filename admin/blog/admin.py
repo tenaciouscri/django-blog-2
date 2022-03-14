@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.utils import timezone
+from django_summernote.admin import SummernoteModelAdmin
 
 from blog.models import Blog
 
 
-class BlogAdmin(admin.ModelAdmin):
+class BlogAdmin(SummernoteModelAdmin):
 
     list_display = (
         "title",
@@ -79,6 +80,9 @@ class BlogAdmin(admin.ModelAdmin):
         return diff.days
 
     days_since_creation.short_description = "Days active"
+
+    # Apply Summernote to all TextField in model
+    summernote_fields = ("body",)
 
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
