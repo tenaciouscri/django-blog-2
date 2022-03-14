@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils import timezone
 
 from blog.models import Blog
 
@@ -10,6 +11,7 @@ class BlogAdmin(admin.ModelAdmin):
         "date_created",
         "last_modified",
         "is_draft",
+        "days_since_creation",
     )  # Customising the way object models get displayed
 
     list_filter = (
@@ -70,6 +72,13 @@ class BlogAdmin(admin.ModelAdmin):
             },
         ),
     )  # Custom fieldsets w/ their own title. Cannot have both fields/fieldsets
+
+    # This function could also be added to models.py
+    def days_since_creation(self, blog):  # Returning no. of days since creation
+        diff = timezone.now() - blog.date_created
+        return diff.days
+
+    days_since_creation.short_description = "Days active"
 
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
