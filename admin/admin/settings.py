@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "blog",
     "django_summernote",
+    "django_admin_listfilter_dropdown",
 ]
 
 MIDDLEWARE = [

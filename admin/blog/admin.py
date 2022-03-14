@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils import timezone
 from django.db.models import Count
 
+from django_admin_listfilter_dropdown.filters import RelatedDropdownFilter
 from django_summernote.admin import SummernoteModelAdmin
 
 from blog.models import Blog, Comment, Category
@@ -119,6 +120,9 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ("blog", "text", "date_created", "is_active")
     list_editable = ("is_active",)  # Editable in table
     list_per_page = 20
+    list_filter = (
+        ("blog", RelatedDropdownFilter),
+    )
 
 
 class CategoryAdmin(admin.ModelAdmin):
