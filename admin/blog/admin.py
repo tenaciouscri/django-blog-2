@@ -95,6 +95,8 @@ class BlogAdmin(SummernoteModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
 
     list_display = ("blog", "text", "date_created", "is_active")
+    list_editable = ("is_active", ) # Editable in table
+    list_per_page = 20
 
 
 
