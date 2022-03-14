@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.utils import timezone
+from django.db.models import Count
+
 from django_summernote.admin import SummernoteModelAdmin
 
 from blog.models import Blog, Comment
@@ -19,6 +21,7 @@ class BlogAdmin(SummernoteModelAdmin):
         "last_modified",
         "is_draft",
         "days_since_creation",
+        "no_of_comments",
     )  # Customising the way object models get displayed
 
     list_filter = (
@@ -92,6 +95,18 @@ class BlogAdmin(SummernoteModelAdmin):
     summernote_fields = ("body",)
 
     inlines = (CommentInline, ) # Adding inlines at the end of the page
+
+    def get_queryset(self, request):
+        '''
+        Overriding changelist queries
+        '''
+        queryset = super().get_queryset(request)
+        queryset = queryset.annotate(comments_count=Count("comments"))
+        return queryset
+    
+    def no_of_comments(self, blog):
+        return blog.comments_count
+    no_of_comments.admin_order_field = "comments_count"
 
 
 
