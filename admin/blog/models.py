@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Blog(models.Model):
 
     title = models.CharField(max_length=250)
@@ -9,4 +10,4 @@ class Blog(models.Model):
     is_draft = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.title #  Show title instead of default name
+        return self.title  #  Show title instead of default name
