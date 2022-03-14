@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils import timezone
 from django_summernote.admin import SummernoteModelAdmin
 
-from blog.models import Blog
+from blog.models import Blog, Comment
 
 
 class BlogAdmin(SummernoteModelAdmin):
@@ -85,4 +85,9 @@ class BlogAdmin(SummernoteModelAdmin):
     summernote_fields = ("body",)
 
 
+class CommentAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
+admin.site.register(Comment, CommentAdmin)
