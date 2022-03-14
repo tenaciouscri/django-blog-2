@@ -9,6 +9,7 @@ class CommentInline(admin.TabularInline): # Showing comments in blog admin page
     model = Comment
     fields = ("text", "is_active")
     extra = 1 # By default 3 empty boxes at the end
+    classes = ("collapse", )
 
 class BlogAdmin(SummernoteModelAdmin):
 
@@ -75,6 +76,7 @@ class BlogAdmin(SummernoteModelAdmin):
             {
                 "fields": ("is_draft",),
                 "description": "Options to configure blog creation",  # Add description
+                "classes": ("collapse", ) # Make section collapsible
             },
         ),
     )  # Custom fieldsets w/ their own title. Cannot have both fields/fieldsets
@@ -90,6 +92,8 @@ class BlogAdmin(SummernoteModelAdmin):
     summernote_fields = ("body",)
 
     inlines = (CommentInline, ) # Adding inlines at the end of the page
+
+
 
 
 class CommentAdmin(admin.ModelAdmin):
