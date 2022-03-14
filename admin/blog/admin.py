@@ -17,16 +17,16 @@ class BlogAdmin(admin.ModelAdmin):
     # ordering = (
     #     'title', # Ascending order
     #     '-date_created', # Descending order
-    # ) # Adding 'order by' for selected fields 
+    # ) # Adding 'order by' for selected fields
 
-    def get_ordering(self, request): # Dynamic functionality for different users
+    def get_ordering(self, request):  # Dynamic functionality for different users
         if request.user.is_superuser:
             return ("title", "-date_created")
         return ("title",)
 
-    search_fields = (
-        "title",
-    ) # Adding searchable fields (case insensitive)
+    search_fields = ("title",)  # Adding searchable fields (case insensitive)
+
+    prepopulated_fields = {"slug": ("title",)}  # Prepopulate field
 
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
