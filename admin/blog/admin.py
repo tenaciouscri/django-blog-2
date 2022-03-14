@@ -33,5 +33,19 @@ class BlogAdmin(admin.ModelAdmin):
 
     list_per_page = 50  # Customise no. objects per page
 
+    def set_blogs_to_published(self, request, queryset):  # Custom action
+        count = queryset.update(
+            is_draft=False
+        )  # Also counting how many items get published
+        self.message_user(
+            request, f"{count} blogs have been published!"
+        )  # Send message to user about successful update
+
+    set_blogs_to_published.short_description = (
+        "Mark selected blogs as published"  # Customise custom action description
+    )
+
+    actions = ("set_blogs_to_published",)  # Adding custom action to list of actions
+
 
 admin.site.register(Blog, BlogAdmin)  #  Registering model to admin panel
