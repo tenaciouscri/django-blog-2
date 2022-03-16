@@ -10,7 +10,8 @@ admin.site.index_title = (
 )
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin/", include("admin_honeypot.urls", namespace="admin_honeypot")),
+    path("safe/", admin.site.urls),
     # path("grappelli/", include("grappelli.urls")),
     path("summernote/", include("django_summernote.urls")),
 ]

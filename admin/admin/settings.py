@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "leaflet",  # Provides widgets for map display
     "djgeojson",  # Provides fields
     "import_export",
+    "admin_honeypot",
 ]
 
 MIDDLEWARE = [

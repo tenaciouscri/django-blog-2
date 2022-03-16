@@ -121,6 +121,17 @@ class BlogAdmin(SummernoteModelAdmin):
 
     filter_horizontal = ("categories",)  # Make many-to-many field more user friendly
 
+    def get_actions(self, request): # Removing delete from list of actions
+        actions = super().get_actions(request)
+        try:
+            del actions["delete_selected"]
+        except KeyError:
+            pass
+        return actions
+
+    def has_delete_permission(self, request, obj=None): # Removing delete button
+        return False
+
 
 class CommentAdmin(ImportExportModelAdmin):  # ImExMoAd to export comments
 
